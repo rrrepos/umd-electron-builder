@@ -1,0 +1,51 @@
+{
+  "name": "umd-app",
+  "version": "1.0.0",
+  "description": "UMD App",
+  "homepage": "https://umd-project.org",
+  "author": "RmR",
+  "license": "MIT",
+  "keywords": [],
+  "scripts": {
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "org.umd-project.electron",
+    "productName": "UMD App",
+    "copyright": "Copyright © 2021 ${author}",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "dmg",
+      "icon": "build",
+      "type": "development"
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico",
+      "legalTrademarks": "Copyright © 2021 ${author}"
+    },
+    "linux": {
+      "target": "deb",
+      "maintainer": "{author}",
+      "category": "Utility",
+      "desktop": {
+        "StartupWMClass": "umd-app"
+      }
+    },
+    "directories": {
+      "buildResources": "build"
+    }
+  },
+  "devDependencies": {
+    "electron": "^11.2.2",
+    "electron-builder": "22.9.1",
+    "electron-builder-squirrel-windows": "^22.10.4",
+    "electron-icon-builder": "^2.0.1"
+  },
+  "dependencies": {
+    "ipc": "0.0.1",
+    "electron-deeplink": "1.0.6",
+    "electron-is-dev": "1.2.0"
+  }
+}
