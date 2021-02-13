@@ -65,7 +65,7 @@ if (!gotTheLock) {
       return createWindow();
     }).then(_win => {
       mainWindow = _win;
-      log.info("mainWindow");
+      log.info("mainWindow:", process.argv[1]);
       if (process.argv[1]) {
         openFile(process.argv[1]);
       }
