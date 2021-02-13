@@ -46,12 +46,17 @@ if (!gotTheLock) {
   app.quit()
 } else {
   app.on("second-instance", (event, argv, workingDirectory) => {
-    if (argv[1]&&argv[1].indexOf('-')==0) argv.unshift('');
+    log.info(argv[1] + "/" + argv[2]);
+    let filePath = argv[1];
+    if (argv[1]&&argv[1].indexOf('-')==0) {
+      filePath = argv[2];
+    }
+    log.info(filePath);
     if (mainWindow ) {
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
-      if (argv[1]) {
-        openFile(argv[1]);
+      if (filePath) {
+        openFile(filePath);
       }
     }
   });
