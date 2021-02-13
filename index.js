@@ -40,10 +40,11 @@ let mainWindow = null;
 const gotTheLock = app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
+  log.info("already open");
   app.quit()
 } else {
   app.on('second-instance', (event, commandLine, workingDirectory) => {
-    log.info(commandLine);
+    log.info('2:' + commandLine);
     if (mainWindow) {
       if (mainWindow.isMinimized()) mainWindow.restore()
       mainWindow.focus();
@@ -58,7 +59,7 @@ if (!gotTheLock) {
       return createWindow();
     }).then(_win => {
       mainWindow = _win;
-      log.info(process.argv);
+      log.info('1:' + process.argv);
       if (process.argv[1]) {
         openFile(process.argv[1]);
       }
