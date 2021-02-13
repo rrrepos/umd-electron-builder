@@ -45,12 +45,12 @@ const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
   app.quit()
 } else {
-  app.on("second-instance", (event, commandLine, workingDirectory) => {
-    log.info("second-instance" + commandLine.join("/"));
+  app.on("second-instance", (event, argv, workingDirectory) => {
+    if (argv[1]&&argv[1].indexOf('-')==0) argv.unshift('');
     if (mainWindow ) {
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
-      if (commandLine[1]) {
+      if (argv[1]) {
         openFile(commandLine[1]);
       }
     }
