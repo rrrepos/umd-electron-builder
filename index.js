@@ -65,15 +65,17 @@ if (!gotTheLock) {
       return createWindow();
     }).then(_win => {
       mainWindow = _win;
-      if (process.argv[1]&&process.argv[1].indexOf('-')==0) process.argv.unshift('');
+      log.info("whenReady:0", process.argv[0]);
       log.info("whenReady:1", process.argv[1]);
+      //if (process.argv[1]&&process.argv[1].indexOf('-')==0) process.argv.unshift('');
+      //log.info("whenReady:1", process.argv[1]);
       log.info("whenReady:2", filepath);
-      if (process.argv[1]) {
-        openFile(process.argv[1]);
-      }
-      else if(filepath) {
+      if(filepath) {
         openFile(filepath);
         filepath = null;
+      }
+      else if (process.argv[1]) {
+        openFile(process.argv[1]);
       }
     });
 
