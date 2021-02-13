@@ -1,9 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 var fs = require('fs');
-const log = require("electron-log");
 
 async function openFile(filepath) {
-  log.info("openFile:" + filepath);
   let arraybuffer;
 
   if (filepath) {
@@ -18,7 +16,6 @@ async function openFile(filepath) {
 }
 
 function createWindow() {
-  log.info("createWindow");
   return new Promise(resolve => {
     const win = new BrowserWindow({
       width: 800,
@@ -47,34 +44,24 @@ if (!gotTheLock) {
   app.quit()
 } else {
   app.on('second-instance', (event, commandLine, workingDirectory) => {
-    log.info("second-instance:"+mainWindow)
     if (mainWindow ) {
-      log.info("second-instance window exists");
       if (mainWindow.isMinimized()) mainWindow.restore();
-      log.info("second-instance before focus")
       mainWindow.focus();
       if (commandLine[1]) {
-        log.info("second-instance" + commandLine[1])
         openFile(commandLine[1]);
       }
     }
-    log.info("end of second-instance");
   });
 
   app.whenReady()
     .then(_ => {
-      log.info("when ready");
       return createWindow();
     }).then(_win => {
       mainWindow = _win;
-      log.info("set mainwindow");
       if(filepath) {
-        log.info("set filepath" + filepath);
         openFile(filepath);
-        //filepath = null;
       }
       else if (process.argv[1]) {
-        log.info("set processargv[1]"+process.argv[1]);
         openFile(process.argv[1]);
       }
     });
