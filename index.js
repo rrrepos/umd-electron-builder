@@ -46,7 +46,7 @@ if (!gotTheLock) {
   app.quit()
 } else {
   app.on("second-instance", (event, commandLine, workingDirectory) => {
-    log.info("second-instance" + commandLine[1]);
+    log.info("second-instance" + commandLine.join("/"));
     if (mainWindow ) {
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
