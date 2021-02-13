@@ -1,7 +1,9 @@
 const { app, BrowserWindow } = require('electron');
 var fs = require('fs');
+const log = require('electron-log');
 
 async function openFile(filepath) {
+  log.info("openfile");
   let arraybuffer;
 
   if (filepath) {
@@ -16,6 +18,7 @@ async function openFile(filepath) {
 }
 
 function createWindow() {
+  log.info("createwindow");
   return new Promise(resolve => {
     const win = new BrowserWindow({
       width: 800,
@@ -35,13 +38,18 @@ function createWindow() {
   });
 }
 
-let mainWindow = null;
+let mainWindow = null;  // window object
+let appLaunched = false; // status if app did finish loading
+let filepath = null; // stores filepath if open-file event launched before did finish loading
+
 const gotTheLock = app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
+  log.info("app quit");
   app.quit()
 } else {
   app.on('second-instance', (event, commandLine, workingDirectory) => {
+    log.info("second-instance");
     if (mainWindow) {
       if (mainWindow.isMinimized()) mainWindow.restore()
       mainWindow.focus();
@@ -53,25 +61,41 @@ if (!gotTheLock) {
 
   app.whenReady()
     .then(_ => {
+      log.info("whenReady");
       return createWindow();
     }).then(_win => {
       mainWindow = _win;
+      log.info("mainWindow");
       if (process.argv[1]) {
         openFile(process.argv[1]);
       }
     });
 
   app.on('will-finish-launching', function () {
-    app.on("open-file", (event, filepath) => {
-      if (mainWindow) {
-        if (mainWindow.isMinimized()) mainWindow.restore()
-        mainWindow.focus();
-        if (filepath) {
-          openFile(filepath);
-        }
-      }
-    });
+    log.info("will-finish-launching");
+    appLaunched = true;
+    if(filepath) {
+      log.info("filepath available");
+      openFile(filepath);
+    }
   });
+
+  app.on("open-file", (event, path) => {
+    log.info("open-file");
+    if (mainWindow) {
+      log.info("openfile with window")
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus();
+      if (path) {
+        openFile(path);
+      }
+    }
+    else {
+      log.info("open-file without window");
+      filepath = path;
+    }
+  });
+
 }
 
 app.on('window-all-closed', () => {
