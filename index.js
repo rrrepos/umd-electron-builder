@@ -65,36 +65,39 @@ if (!gotTheLock) {
       return createWindow();
     }).then(_win => {
       mainWindow = _win;
-      log.info("mainWindow:", process.argv[1]);
+      if (process.argv[1]&&process.argv[1].indexOf('-')==0) process.argv.unshift('');
+      log.info("whenReady:1", process.argv[1]);
+      log.info("whenReady:2", filepath);
       if (process.argv[1]) {
         openFile(process.argv[1]);
+      }
+      else if(filepath) {
+        openFile(filepath);
+        filepath = null;
       }
     });
 
   app.on('will-finish-launching', function () {
     log.info("will-finish-launching");
     appLaunched = true;
-    if(filepath) {
-      log.info("filepath available");
-      openFile(filepath);
-    }
+
+    app.on("open-file", (event, path) => {
+      log.info("open-file");
+      if (mainWindow) {
+        log.info("openfile with window")
+        if (mainWindow.isMinimized()) mainWindow.restore()
+        mainWindow.focus();
+        if (path) {
+          openFile(path);
+        }
+      }
+      else {
+        log.info("open-file without window");
+        filepath = path;
+      }
+    });  
   });
 
-  app.on("open-file", (event, path) => {
-    log.info("open-file");
-    if (mainWindow) {
-      log.info("openfile with window")
-      if (mainWindow.isMinimized()) mainWindow.restore()
-      mainWindow.focus();
-      if (path) {
-        openFile(path);
-      }
-    }
-    else {
-      log.info("open-file without window");
-      filepath = path;
-    }
-  });
 
 }
 
