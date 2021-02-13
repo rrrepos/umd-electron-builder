@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 var fs = require('fs');
+const log = require('electron-log');
 
 async function openFile(filepath) {
   let arraybuffer;
@@ -42,6 +43,7 @@ if (!gotTheLock) {
   app.quit()
 } else {
   app.on('second-instance', (event, commandLine, workingDirectory) => {
+    log.info(commandLine);
     if (mainWindow) {
       if (mainWindow.isMinimized()) mainWindow.restore()
       mainWindow.focus();
@@ -56,14 +58,14 @@ if (!gotTheLock) {
       return createWindow();
     }).then(_win => {
       mainWindow = _win;
-      console.log(process.argv);
+      log.info(process.argv);
       if (process.argv[1]) {
         openFile(process.argv[1]);
       }
     });
 
  app.on("open-url", (event, url) => {
-
+  console.log("open-url", url);
  });   
 }
 
