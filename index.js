@@ -68,8 +68,17 @@ if (!gotTheLock) {
  app.on("open-url", (event, url) => {
   log.info("open-url", url);
  });
- app.on("open-file", (event, path) => {
-  log.info("open-file", path);
+ 
+ app.on("open-file", (event, filepath) => {
+  log.info("open-file", filepath);
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore()
+    mainWindow.focus();
+    if(filepath) {
+      openFile(filepath);
+    }
+  }
+
   openFile(path);
  });    
 }
