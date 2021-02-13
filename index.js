@@ -56,10 +56,15 @@ if (!gotTheLock) {
       return createWindow();
     }).then(_win => {
       mainWindow = _win;
+      console.log(process.argv);
       if (process.argv[1]) {
         openFile(process.argv[1]);
       }
     });
+
+ app.on("open-url", (event, url) => {
+
+ });   
 }
 
 app.on('window-all-closed', () => {

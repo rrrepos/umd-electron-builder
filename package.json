@@ -44,8 +44,6 @@
     "electron-icon-builder": "^2.0.1"
   },
   "dependencies": {
-    "ipc": "0.0.1",
-    "electron-deeplink": "1.0.6",
-    "electron-is-dev": "1.2.0"
+    "ipc": "0.0.1"
   }
 }
