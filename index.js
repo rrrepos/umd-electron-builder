@@ -65,7 +65,7 @@ if (!gotTheLock) {
     });
 
  app.on("open-url", (event, url) => {
-  console.log("open-url", url);
+  log.info("open-url", url);
  });   
 }
 
