@@ -67,7 +67,11 @@ if (!gotTheLock) {
 
  app.on("open-url", (event, url) => {
   log.info("open-url", url);
- });   
+ });
+ app.on("open-file", (event, path) => {
+  log.info("open-file", path);
+  openFile(path);
+ });    
 }
 
 app.on('window-all-closed', () => {
