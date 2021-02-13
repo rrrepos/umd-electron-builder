@@ -51,7 +51,7 @@ if (!gotTheLock) {
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
       if (argv[1]) {
-        openFile(commandLine[1]);
+        openFile(argv[1]);
       }
     }
   });
