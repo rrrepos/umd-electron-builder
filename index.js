@@ -1,6 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 var fs = require("fs");
-const log = require("log");
+const log = require("electron-log");
 
 async function openFile(filepath) {
   log.info("openFile" + filepath);
