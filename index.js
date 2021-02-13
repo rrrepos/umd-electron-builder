@@ -51,10 +51,10 @@ if (!gotTheLock) {
     if (mainWindow ) {
       log.info("second-instance window exists");
       if (mainWindow.isMinimized()) mainWindow.restore();
-      log.info("second-instance before focus")''
+      log.info("second-instance before focus")
       mainWindow.focus();
       if (commandLine[1]) {
-        log.info("second-instance" + commandLine[1]'')
+        log.info("second-instance" + commandLine[1])
         openFile(commandLine[1]);
       }
     }
