@@ -1,9 +1,7 @@
 const { app, BrowserWindow } = require("electron");
 var fs = require("fs");
-const log = require("electron-log");
 
 async function openFile(filepath) {
-  log.info("openFile" + filepath);
   let arraybuffer;
 
   if (filepath) {
@@ -46,12 +44,10 @@ if (!gotTheLock) {
   app.quit()
 } else {
   app.on("second-instance", (event, argv, workingDirectory) => {
-    log.info(argv[1] + "/" + argv[2]);
     let filePath = argv[1];
     if (argv[1]&&argv[1].indexOf('-')==0) {
       filePath = argv[2];
     }
-    log.info(filePath);
     if (mainWindow ) {
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
@@ -63,11 +59,9 @@ if (!gotTheLock) {
 
   app.whenReady()
     .then(_ => {
-      log.info("whenReady");
       return createWindow();
     }).then(_win => {
       mainWindow = _win;
-      log.info("2/" + filepath + "/" + process.argv[1]);
       if(filepath) {
         openFile(filepath);
       }
@@ -77,7 +71,6 @@ if (!gotTheLock) {
     });
 
   app.on("will-finish-launching", function () {
-    log.info("will-finish-launching");
     app.on("open-file", (event, path) => {
       if (mainWindow) {
         if (mainWindow.isMinimized()) mainWindow.restore()
@@ -91,8 +84,6 @@ if (!gotTheLock) {
       }
     });  
   });
-
-
 }
 
 app.on('window-all-closed', () => {

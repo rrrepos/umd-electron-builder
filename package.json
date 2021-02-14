@@ -27,9 +27,14 @@
       "extendInfo": ".Info.plist"
     },
     "win": {
-      "target": "squirrel",
-      "icon": "build/icon.ico",
+      "target": "msi",
+      "icon": "icon.ico",
       "legalTrademarks": "Copyright © 2021 ${author}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": true,
+      "installerIcon": "icon.ico"
     },
     "linux": {
       "target": "deb",
