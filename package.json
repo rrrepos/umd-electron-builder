@@ -32,7 +32,7 @@
       "legalTrademarks": "Copyright © 2021 ${author}"
     },
     "nsis": {
-      "oneClick": true,
+      "oneClick": false,
       "perMachine": true,
       "installerIcon": "icon.ico"
     },
