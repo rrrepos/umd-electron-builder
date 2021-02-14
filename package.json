@@ -27,7 +27,7 @@
       "extendInfo": ".Info.plist"
     },
     "win": {
-      "target": "msi",
+      "target": "nsis",
       "icon": "icon.ico",
       "legalTrademarks": "Copyright © 2021 ${author}"
     },
