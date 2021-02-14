@@ -15,10 +15,10 @@
     "appId": "org.umd-project.electron",
     "productName": "UMD App",
     "copyright": "Copyright © 2021 ${author}",
-    "fileAssociations": {
-      "ext": "umd",
+    "fileAssociations": [{
+      "ext": ["umd"],
       "name": "umd"
-    },
+    }],
     "mac": {
       "category": "public.app-category.productivity",
       "target": "dmg",
